@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -58,5 +59,33 @@ class AuthController extends Controller
             ], 500);
         
         }
+    }
+
+    public function login(Request $request)
+    {
+        
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'lowercase'],
+            'password' => ['required', 'string', 'max:255']
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        
+        if(! $user || ! Hash::check($request->password, $user->password)){
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.']
+            ]);
+        }
+        
+        $user->save();
+        
+        $token = $user->createToken('Sama Food');
+
+        return response()->json([
+            'status'=> 'success',
+            'token' => $token->plainTextToken,
+            'user' => $user
+        ], 200);
+
     }
 }
