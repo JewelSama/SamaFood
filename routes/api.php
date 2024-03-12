@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
@@ -33,4 +34,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/restaurants', [RestaurantController::class, 'getRestaurants']);
+    Route::get('/restaurant/menu/{id}', [MenuController::class, 'getRestaurantMenu']);
 });

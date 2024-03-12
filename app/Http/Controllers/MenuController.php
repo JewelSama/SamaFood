@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class MenuController extends Controller
 {
-    public function getUserOrders(Request $request, $id)
+    public function getRestaurantMenu(Request $request, $id)
     {
         try{
 
-            $user = User::find($id);
+            $restaurant = Restaurant::find($id);
     
-            if(!$user){
+            if(!$restaurant){
                 return response()->json([
                     'status' => 'failed',
-                    'message' => 'User not found'
+                    'message' => 'Restaurant not found.'
                 ], 404);    
             }
             
 
             return response()->json([
                 'status' => 'success',
-                'data' => $user->order()
+                'data' => $restaurant->menu()
             ], 200);
 
         } catch (\Throwable $th) {
