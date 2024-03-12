@@ -23,7 +23,8 @@ class ProfileController extends Controller
     
             if(!$user){
                 return response()->json([
-                    'status' => 'failure',
+                    'status' => 'failed',
+                    'message' => 'User not found'
                 ], 404);    
             }
             
