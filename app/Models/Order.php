@@ -12,4 +12,9 @@ class Order extends Model
     {
         $this->belongsTo(User::class);
     }
+
+    public function vendor()
+    {
+        $this->belongsTo(Vendor::class);
+    }
 }

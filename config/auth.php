@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'sanctum', // Buyer authentication
+            'provider' => 'users',
+            'hash' => false,
+        ],
+    
+        'vendor-api' => [
+            'driver' => 'sanctum', // Vendor authentication
+            'provider' => 'vendors',
+        ],
+
     ],
 
     /*
@@ -63,6 +75,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Vendor::class,
         ],
 
         // 'users' => [

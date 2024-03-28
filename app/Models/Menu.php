@@ -10,14 +10,15 @@ class Menu extends Model
     use HasFactory;
 
     protected $fillable = [
-        'restaurant_id',
+        'vendor_id',
         'name',
         'description',
         'price',
+        'display_pic',
     ];
 
-    public function restaurant()
+    public function vendor()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Vendor::class);
     }
 }
