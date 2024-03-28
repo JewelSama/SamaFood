@@ -15,6 +15,7 @@ class Vendor extends Model
         'email',
         'password',
         'address',
+        'display_pic',
         'opening_time',
         'closing_time',
         'description',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('address');
+            $table->string('display_pic')->nullable();
             $table->string('opening_time');
             $table->string('closing_time');
             $table->string('description');

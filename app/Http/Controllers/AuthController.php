@@ -76,6 +76,7 @@ class AuthController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'lowercase', 'unique:'.Vendor::class],
             'password' => 'required|confirmed|min:6',
             'address' => ['required', 'string'],
+            'display_pic' => ['required', 'image', 'mimes:jpeg,png,jpg,gif|max:2048'],
             'opening_time' => ['required', 'string'],
             'closing_time' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -102,6 +103,16 @@ class AuthController extends Controller
                 'description' => $request->description,
                 'phone_number' => $request->phone_number,
             ]);
+
+            if ($request->hasFile('display_pic')) {
+                $image = $request->file('display_pic');
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $path = 'uploads/' . $filename;
+                $image->move(public_path('uploads'), $filename);
+                $user->display_pic = $path;
+            }
+
+            $user->save();
 
             $token = $user->createToken('Sama Food');
 
