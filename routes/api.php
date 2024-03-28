@@ -20,15 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 // auth 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/buyer/register', [AuthController::class, 'register']);
+Route::post('/vendor/register', [AuthController::class, 'vendorRegister']);
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/buyer/login', [AuthController::class, 'login']);
+Route::post('/vendor/login', [AuthController::class, 'vendorLogin']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user/profile', [ProfileController::class, 'getProfile']);
-    Route::put('/user/profile/{id}', [ProfileController::class, 'updateProfile']);
-    Route::get('/user/orders/{id}', [OrderController::class, 'getUserOrders']);
+    Route::get('/buyer/profile', [ProfileController::class, 'getProfile']);
+    Route::put('/buyer/profile/{id}', [ProfileController::class, 'updateProfile']);
+    Route::get('/buyer/orders/{id}', [OrderController::class, 'getUserOrders']);
 });
 
 
