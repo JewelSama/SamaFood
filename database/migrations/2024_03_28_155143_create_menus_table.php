@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->string('name');
             $table->string('description');
             $table->string('price');
+            $table->string('display_pic')->nullable();
             $table->timestamps();
         });
     }

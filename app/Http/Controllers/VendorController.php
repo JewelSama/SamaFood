@@ -11,7 +11,7 @@ class VendorController extends Controller
     {
         try{
 
-            $vendors = Vendor::all();
+            $vendors = Vendor::select('id', 'name', 'email', 'address', 'display_pic', 'opening_time', 'closing_time', 'description', 'phone_number')->get();
 
             return response()->json([
                 'status' => 'success',

@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/vendors', [VendorController::class, 'getVendors']);
-    Route::get('/vendor/menu/{id}', [MenuController::class, 'getRestaurantMenu']);
+    Route::get('/vendors/all', [VendorController::class, 'getVendors']);
+    Route::post('/vendor/menu/new/{id}', [MenuController::class, 'create']);
+    Route::get('/vendor/menu/{id}', [MenuController::class, 'getVendorMenu']);
 });

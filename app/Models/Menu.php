@@ -14,6 +14,7 @@ class Menu extends Model
         'name',
         'description',
         'price',
+        'display_pic',
     ];
 
     public function vendor()

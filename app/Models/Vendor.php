@@ -22,12 +22,12 @@ class Vendor extends Model
         'phone_number',
     ];
     
-    public function menu()
+    public function menus()
     {
         return $this->hasMany(Menu::class);
     }
     
-    public function order()
+    public function orders()
     {
         return $this->hasMany(Order::class);
     }
