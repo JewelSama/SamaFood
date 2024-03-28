@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Restaurant;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
-class RestaurantController extends Controller
+class VendorController extends Controller
 {
-    public function getRestaurants()
+    public function getVendors()
     {
         try{
 
-            $restaurants = Restaurant::all();
+            $vendors = Vendor::all();
 
             return response()->json([
                 'status' => 'success',
-                'data' => $restaurants
+                'data' => $vendors
             ]);
 
         } catch(\Throwable $th) {

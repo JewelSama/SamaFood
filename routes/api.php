@@ -5,6 +5,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/restaurants', [RestaurantController::class, 'getRestaurants']);
-    Route::get('/restaurant/menu/{id}', [MenuController::class, 'getRestaurantMenu']);
+    Route::get('/vendors', [VendorController::class, 'getVendors']);
+    Route::get('/vendor/menu/{id}', [MenuController::class, 'getRestaurantMenu']);
 });

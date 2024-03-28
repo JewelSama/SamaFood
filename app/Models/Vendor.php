@@ -20,5 +20,16 @@ class Vendor extends Model
         'description',
         'phone_number',
     ];
+    
+    public function menu()
+    {
+        return $this->hasMany(Menu::class);
+    }
+    
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 
 }
