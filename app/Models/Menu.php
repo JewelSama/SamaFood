@@ -21,4 +21,9 @@ class Menu extends Model
     {
         return $this->belongsTo(Vendor::class);
     }
+    
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
