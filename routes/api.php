@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/buyer/profile', [ProfileController::class, 'getProfile']);
     Route::put('/buyer/profile/{id}', [ProfileController::class, 'updateProfile']);
     Route::get('/buyer/orders/{id}', [OrderController::class, 'getUserOrders']);
+    Route::post('/buyer/order/new', [OrderController::class, 'create']);
 });
 
 
@@ -39,4 +40,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/vendors/all', [VendorController::class, 'getVendors']);
     Route::post('/vendor/menu/new/{id}', [MenuController::class, 'create']);
     Route::get('/vendor/menu/{id}', [MenuController::class, 'getVendorMenu']);
+    Route::put('/vendor/menu/{id}', [MenuController::class, 'editMenu']);
 });
