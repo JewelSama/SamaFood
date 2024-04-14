@@ -170,6 +170,15 @@ class OrderController extends Controller
                     'message' => 'Order not found'
                 ], 404);    
             }
+            $od = $order->items;
+
+            $OrderedMenu = [];
+
+            foreach($od as $o){
+                $newMenu = Menu::find($o->menu_id);
+                $OrderedMenu[] = $newMenu;
+
+            }
 
             $user_that_ordered = User::find($order->user_id);
 
@@ -187,7 +196,9 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $order
+                'buyer' => $user_that_ordered,
+                'data' => $order,
+                'menu' => $OrderedMenu
             ], 200);
 
         } catch (\Throwable $th) {
