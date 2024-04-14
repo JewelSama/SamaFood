@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderStatusMail;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -132,9 +134,60 @@ class OrderController extends Controller
 
             $user = auth()->user();
 
+
             return response()->json([
                 'status' => 'success',
                 'data' => $user->orders
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            throw $th;
+
+            $errors = [
+                'error' => [
+                    'Something went wrong, please try again.'
+                ]
+            ];
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong, please try again.',
+                'errors' => $errors
+            ], 500);
+
+        }
+    }
+
+    public function updateOrderStatus(Request $request, $id){
+        try{
+
+            $order = Order::find($id);
+    
+            if(!$order){
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Order not found'
+                ], 404);    
+            }
+
+            $user_that_ordered = User::find($order->user_id);
+
+            $order->status = $request->status;
+
+            $order->save();
+
+            $data = [
+                'title'=> "Your Order has been ".$request->status."!",
+                'content' => 'Open the SamaFood app to learn more.'
+            ];
+         
+            Mail::to($user_that_ordered->email)->send(new OrderStatusMail($data));
+            
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $order
             ], 200);
 
         } catch (\Throwable $th) {

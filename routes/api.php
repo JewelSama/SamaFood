@@ -6,7 +6,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\VendorController;
+use App\Mail\OrderStatusMail;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,4 +45,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/vendor/menu/{id}', [MenuController::class, 'getVendorMenu']);
     Route::put('/vendor/menu/{id}', [MenuController::class, 'editMenu']);
     Route::get('/vendor/orders', [OrderController::class, 'getVendorOrders']);
+    Route::put('/vendor/orders/{id}', [OrderController::class, 'updateOrderStatus']);
 });
+
+// Route::get('send-mail/{id}', function ($id) {
+//     $data = [
+//         'title'=> "Your Order has been accepted!",
+//         'content' => 'Open the SamaFood app to learn more.'
+//     ];
+ 
+//     Mail::to('jameshopejew@gmail.com')->send(new OrderStatusMail($data));
+// });
