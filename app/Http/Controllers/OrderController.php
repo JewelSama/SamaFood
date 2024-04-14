@@ -125,4 +125,34 @@ class OrderController extends Controller
         }
 
     }
+
+    public function getVendorOrders(Request $request)
+    {
+        try{
+
+            $user = auth()->user();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $user->orders
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            throw $th;
+
+            $errors = [
+                'error' => [
+                    'Something went wrong, please try again.'
+                ]
+            ];
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong, please try again.',
+                'errors' => $errors
+            ], 500);
+
+        }
+    }
 }

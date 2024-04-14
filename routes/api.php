@@ -41,4 +41,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/vendor/menu/new/{id}', [MenuController::class, 'create']);
     Route::get('/vendor/menu/{id}', [MenuController::class, 'getVendorMenu']);
     Route::put('/vendor/menu/{id}', [MenuController::class, 'editMenu']);
+    Route::get('/vendor/orders', [OrderController::class, 'getVendorOrders']);
 });
