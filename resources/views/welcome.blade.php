@@ -38,7 +38,7 @@
                     </svg>
                 </div>
                 <div class="flex justify-center">
-                    <h3 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Welcome to SamaFood by Jewel!</h3>
+                    <h3 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Welcome to SamaFood by Jewel-Sama!</h3>
                 </div>
 
                 <!-- <div class="mt-16">
