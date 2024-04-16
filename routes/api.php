@@ -33,6 +33,7 @@ Route::post('/vendor/login', [AuthController::class, 'vendorLogin']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/buyer/profile', [ProfileController::class, 'getProfile']);
+    Route::get('/buyer/menu/all', [MenuController::class, 'getAllMenu']);
     Route::put('/buyer/profile/{id}', [ProfileController::class, 'updateProfile']);
     Route::get('/buyer/orders/{id}', [OrderController::class, 'getUserOrders']);
     Route::post('/buyer/order/new', [OrderController::class, 'create']);

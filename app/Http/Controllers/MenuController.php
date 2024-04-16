@@ -170,4 +170,35 @@ class MenuController extends Controller
         }
     }
 
+    public function getAllMenu(){
+
+        try{
+            
+            $menu = Menu::all();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $menu
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            throw $th;
+
+            $errors = [
+                'error' => [
+                    'Something went wrong, please try again.'
+                ]
+            ];
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong, please try again.',
+                'errors' => $errors
+            ], 500);
+
+        }
+
+    }
+
 }
