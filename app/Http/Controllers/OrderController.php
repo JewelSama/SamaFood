@@ -13,23 +13,15 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    public function getUserOrders(Request $request, $id)
+    public function getUserOrders(Request $request)
     {
         try{
-
-            $user = User::find($id);
-    
-            if(!$user){
-                return response()->json([
-                    'status' => 'failed',
-                    'message' => 'User not found'
-                ], 404);    
-            }
+            $user = auth()->user();
             
 
             return response()->json([
                 'status' => 'success',
-                'data' => $user->order()
+                'data' => $user->orders
             ], 200);
 
         } catch (\Throwable $th) {
