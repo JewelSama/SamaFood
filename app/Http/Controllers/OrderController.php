@@ -21,7 +21,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $user->orders
+                'data' => $user->orders()->with('vendor')->get()
             ], 200);
 
         } catch (\Throwable $th) {
