@@ -3,31 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderStatusMail;
+use App\Mail\NewOrderMail;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    public function getUserOrders(Request $request, $id)
+    public function getUserOrders(Request $request)
     {
         try{
-
-            $user = User::find($id);
-    
-            if(!$user){
-                return response()->json([
-                    'status' => 'failed',
-                    'message' => 'User not found'
-                ], 404);    
-            }
+            $user = auth()->user();
             
 
             return response()->json([
                 'status' => 'success',
-                'data' => $user->order()
+                'data' => $user->orders()->with('vendor')->get()
             ], 200);
 
         } catch (\Throwable $th) {
@@ -63,6 +57,7 @@ class OrderController extends Controller
             // You can retrieve the vendor_id from any of the menu item
             $vendorId = $cartItems[0]['vendor_id'];
              // Assuming vendor_id is included in $cartItems
+            $vendor = Vendor::where('id', $vendorId)->first();
 
             $user=User::findOrFail(auth()->id());
 
@@ -100,13 +95,21 @@ class OrderController extends Controller
                 ]);
             }
 
+
+            $data = [
+                'title'=> "A new Order has been created",
+                'content' => 'Open the SamaFood app to learn more.'
+            ];
+         
+            Mail::to($vendor->email)->send(new NewOrderMail($data));
+
             
             
     
 
             return response()->json([
                 'status' => 'success',
-                'data' => $menuIds,
+                'data' => $vendor->email,
                 // 'pricee' => $totalPrice
             ], 201);
 
