@@ -140,7 +140,14 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $user->orders
+                // 'data' => $user->orders
+                // 'data' => $user->orders()->with('vendor', 'items', 'user')->get()
+                'data' => $user->orders()->with(['vendor', 'user', 'items' => function ($query) {
+                    $query->select('quantity', 'order_id', 'menu_id'); // Select only the necessary columns
+                    $query->with(['menu' => function ($query) {
+                        $query->select('id', 'name'); // Select only the name column from the menu relationship
+                    }]);
+                }])->get()
             ], 200);
 
         } catch (\Throwable $th) {
