@@ -86,7 +86,8 @@ class MenuController extends Controller
             $menu->save();
 
             return response()->json([
-                'status' => 'success',
+                'status' => 'successs',
+                'data' => $vendor->menus
             ], 201);
 
         } catch (\Throwable $th) {
